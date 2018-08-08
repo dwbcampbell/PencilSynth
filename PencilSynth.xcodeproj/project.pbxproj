@@ -401,6 +401,7 @@
 				3EEE206D1C02226F00765BAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
