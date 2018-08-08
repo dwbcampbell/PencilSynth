@@ -7,7 +7,17 @@
 //
 
 import UIKit
+import AudioKit
 import SceneKit
+
+let baseFrequencyMin:Double = 1.0
+let baseFrequencyMax:Double = 880.0
+let modulatingMultiplierMin:Double = 0.0
+let modulatingMultiplierMax:Double = 2.0
+let carrierMultiplierMin:Double = 0.0
+let carrierMultiplierMax:Double = 2.0
+let modulationIndexMin:Double = 0.0
+let modulationIndexMax:Double = 2.0
 
 class ViewController: UIViewController
 {
@@ -19,16 +29,16 @@ class ViewController: UIViewController
     let cylinderNode = SCNNode(geometry: SCNCapsule(capRadius: 0.05, height: 1))
     let plane = SCNNode(geometry: SCNPlane(width: 20, height: 20))
     
-    let oscillator = FMOscillator()
-    let rollingWaveformPlot = AKAudioOutputRollingWaveformPlot()
+    let oscillator = AKFMOscillator()
+    //let rollingWaveformPlot = AKAudioOutputRollingWaveformPlot()
     
     let label = UILabel()
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        view.addSubview(rollingWaveformPlot)
+        
+        //view.addSubview(rollingWaveformPlot)
         view.addSubview(sceneKitView)
         
         label.numberOfLines = 4
@@ -66,16 +76,20 @@ class ViewController: UIViewController
         
         cylinderNode.opacity = 0
         
-        AKOrchestra.add(oscillator)
-        AKOrchestra.start()
-        AKManager.addBinding(rollingWaveformPlot)
+        AudioKit.output = oscillator
+        do {
+            try AudioKit.start()
+        }
+        catch {
+            print("unable to start AudioKit")
+        }
+        //AKOrchestra.start()
+        //AKManager.addBinding(rollingWaveformPlot)
         
-        oscillator.amplitude.value = oscillator.amplitude.minimum
-        
-        
-        oscillator.amplitude.value = oscillator.amplitude.maximum
+        //  oscillator.amplitude = oscillator.amplitude.minimum
+        //  oscillator.amplitude = oscillator.amplitude.maximum
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         guard let touch = touches.first,
@@ -83,7 +97,7 @@ class ViewController: UIViewController
         {
             return
         }
-
+        
         pencilTouchHandler(touch: touch)
         oscillator.play()
         label.isHidden = false
@@ -133,19 +147,19 @@ class ViewController: UIViewController
         let modulatingMultiplier = touch.location(in: view).y / view.bounds.height
         let carrierMultiplier = (halfPi - touch.altitudeAngle) / halfPi
         let modulationIndex = (pi + touch.azimuthAngle(in: view)) / (pi * 2)
-     
+        
         label.text = String(format: "⇔ Frequency: %d %%", Int(frequency * 100)) +
             String(format: "\n⇕ Modulating Multiplier: %d %%", Int(modulatingMultiplier * 100)) +
             String(format: "\n∢ Carrier Multiplier: %d %%", Int(carrierMultiplier * 100)) +
             String(format: "\n↻ Modulation Index: %d %%", Int(modulationIndex * 100))
         
-        oscillator.frequency.value = (oscillator.frequency.maximum - oscillator.frequency.minimum) * Float(frequency)
+        oscillator.baseFrequency = (baseFrequencyMax - baseFrequencyMin) * Float(frequency)
         
-        oscillator.modulatingMultiplier.value = (oscillator.modulatingMultiplier.maximum - oscillator.modulatingMultiplier.minimum) * Float(modulatingMultiplier)
+        oscillator.modulatingMultiplier = (modulatingMultiplierMax - modulatingMultiplierMin) * Float(modulatingMultiplier)
         
-        oscillator.carrierMultiplier.value = (oscillator.carrierMultiplier.maximum - oscillator.carrierMultiplier.minimum) * Float(carrierMultiplier)
+        oscillator.carrierMultiplier = (carrierMultiplierMax - carrierMultiplierMin) * Float(carrierMultiplier)
         
-        oscillator.modulationIndex.value = (oscillator.modulationIndex.maximum - oscillator.modulationIndex.minimum) * Float(modulationIndex)
+        oscillator.modulationIndex = (modulationIndexMax - modulationIndexMin) * Float(modulationIndex)
         
     }
     
@@ -172,14 +186,14 @@ class ViewController: UIViewController
         
         scene.rootNode.addChildNode(omniLightNode)
     }
-
+    
     override func viewDidLayoutSubviews()
     {
         sceneKitView.frame = view.bounds
-        rollingWaveformPlot.frame = view.bounds
-
+        // rollingWaveformPlot.frame = view.bounds
+        
         label.frame = CGRect(x: 0, y: topLayoutGuide.length, width: view.frame.width, height: label.intrinsicContentSize.height)
     }
-
+    
 }
 
