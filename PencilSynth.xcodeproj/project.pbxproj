@@ -12,7 +12,7 @@
 		3EEE20621C02226F00765BAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEE20601C02226F00765BAC /* Main.storyboard */; };
 		3EEE20641C02226F00765BAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EEE20631C02226F00765BAC /* Assets.xcassets */; };
 		3EEE20671C02226F00765BAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEE20651C02226F00765BAC /* LaunchScreen.storyboard */; };
-		5E254D7C211B4622005A25A0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E254D7B211B4622005A25A0 /* AudioKit.framework */; };
+		D9C83222EBC58562920234E8 /* Pods_PencilSynth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEF6ECFB0E6E4C6E47C60C08 /* Pods_PencilSynth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,9 @@
 		3EEE20631C02226F00765BAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EEE20661C02226F00765BAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EEE20681C02226F00765BAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5E254D7B211B4622005A25A0 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		AC064020FA84C6D31EFEFB9C /* Pods-PencilSynth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PencilSynth.release.xcconfig"; path = "Pods/Target Support Files/Pods-PencilSynth/Pods-PencilSynth.release.xcconfig"; sourceTree = "<group>"; };
+		DEF6ECFB0E6E4C6E47C60C08 /* Pods_PencilSynth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PencilSynth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E186D5723A69265ACA364F1B /* Pods-PencilSynth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PencilSynth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PencilSynth/Pods-PencilSynth.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,19 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E254D7C211B4622005A25A0 /* AudioKit.framework in Frameworks */,
+				D9C83222EBC58562920234E8 /* Pods_PencilSynth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D6A1382AB4BE02991B41BA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEF6ECFB0E6E4C6E47C60C08 /* Pods_PencilSynth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3EEE20501C02226F00765BAC = {
 			isa = PBXGroup;
 			children = (
 				3EEE205B1C02226F00765BAC /* PencilSynth */,
 				3EEE205A1C02226F00765BAC /* Products */,
-				5E254D7B211B4622005A25A0 /* AudioKit.framework */,
+				4375208ED856703A76AE3436 /* Pods */,
+				2D6A1382AB4BE02991B41BA5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +79,15 @@
 			path = PencilSynth;
 			sourceTree = "<group>";
 		};
+		4375208ED856703A76AE3436 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E186D5723A69265ACA364F1B /* Pods-PencilSynth.debug.xcconfig */,
+				AC064020FA84C6D31EFEFB9C /* Pods-PencilSynth.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -75,6 +95,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3EEE206B1C02226F00765BAC /* Build configuration list for PBXNativeTarget "PencilSynth" */;
 			buildPhases = (
+				11F81F573DC9156F47B283E8 /* [CP] Check Pods Manifest.lock */,
 				3EEE20551C02226F00765BAC /* Sources */,
 				3EEE20561C02226F00765BAC /* Frameworks */,
 				3EEE20571C02226F00765BAC /* Resources */,
@@ -134,6 +155,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11F81F573DC9156F47B283E8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PencilSynth-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3EEE20551C02226F00765BAC /* Sources */ = {
@@ -273,6 +315,7 @@
 		};
 		3EEE206C1C02226F00765BAC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E186D5723A69265ACA364F1B /* Pods-PencilSynth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 42S72867TF;
@@ -293,6 +336,7 @@
 		};
 		3EEE206D1C02226F00765BAC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC064020FA84C6D31EFEFB9C /* Pods-PencilSynth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 42S72867TF;
