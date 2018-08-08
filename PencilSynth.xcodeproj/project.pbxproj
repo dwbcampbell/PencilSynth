@@ -385,6 +385,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.flexmonkey.PencilSynth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/PencilSynth/PencilSynthHeader.h";
+				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "./AudioKit/AudioKit/**";
 			};
 			name = Debug;
@@ -399,6 +400,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = uk.co.flexmonkey.PencilSynth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/PencilSynth/PencilSynthHeader.h";
+				SWIFT_VERSION = 4.0;
 				USER_HEADER_SEARCH_PATHS = "./AudioKit/AudioKit/**";
 			};
 			name = Release;
