@@ -11,8 +11,8 @@ import SceneKit
 
 class ViewController: UIViewController
 {
-    let halfPi = CGFloat(M_PI_2)
-    let pi = CGFloat(M_PI)
+    let halfPi = CGFloat(Double.pi / 2)
+    let pi = CGFloat(Double.pi)
     
     let sceneKitView = SCNView()
     let scene = SCNScene()
@@ -33,15 +33,15 @@ class ViewController: UIViewController
         
         label.numberOfLines = 4
         label.text = " \n \n \n "
-        label.font = UIFont.boldSystemFontOfSize(24)
-        label.textColor = UIColor.whiteColor()
-        label.hidden = true
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textColor = UIColor.white
+        label.isHidden = true
         view.addSubview(label)
         
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.black
         
         sceneKitView.scene = scene
-        sceneKitView.backgroundColor = UIColor.clearColor()
+        sceneKitView.backgroundColor = UIColor.clear
         addLights()
         
         let camera = SCNCamera()
@@ -66,7 +66,7 @@ class ViewController: UIViewController
         
         cylinderNode.opacity = 0
         
-        AKOrchestra.addInstrument(oscillator)
+        AKOrchestra.add(oscillator)
         AKOrchestra.start()
         AKManager.addBinding(rollingWaveformPlot)
         
@@ -76,63 +76,63 @@ class ViewController: UIViewController
         oscillator.amplitude.value = oscillator.amplitude.maximum
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        guard let touch = touches.first where
-                touch.type == UITouchType.Stylus else
+        guard let touch = touches.first,
+            touch.type == UITouchType.stylus else
         {
             return
         }
 
-        pencilTouchHandler(touch)
+        pencilTouchHandler(touch: touch)
         oscillator.play()
-        label.hidden = false
+        label.isHidden = false
         
-        SCNTransaction.setAnimationDuration(0.25)
+        SCNTransaction.animationDuration = 0.25
         cylinderNode.opacity = 1
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        guard let touch = touches.first where
-                touch.type == UITouchType.Stylus else
+        guard let touch = touches.first,
+            touch.type == UITouchType.stylus else
         {
             return
         }
         
-        pencilTouchHandler(touch)
+        pencilTouchHandler(touch: touch)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        guard touches.first?.type == UITouchType.Stylus else
+        guard touches.first?.type == UITouchType.stylus else
         {
             return
         }
         
         oscillator.stop()
-        label.hidden = false
+        label.isHidden = false
         
-        SCNTransaction.setAnimationDuration(0.25)
+        SCNTransaction.animationDuration = 0.25
         cylinderNode.opacity = 0
     }
     
     func pencilTouchHandler(touch: UITouch)
     {
-        guard let hitTestResult:SCNHitTestResult = sceneKitView.hitTest(touch.locationInView(view), options: nil).filter( { $0.node == plane }).first else
+        guard let hitTestResult:SCNHitTestResult = sceneKitView.hitTest(touch.location(in: view), options: nil).filter( { $0.node == plane }).first else
         {
             return
         }
         
-        SCNTransaction.setAnimationDuration(0)
+        SCNTransaction.animationDuration = 0
         
         cylinderNode.position = SCNVector3(hitTestResult.localCoordinates.x, hitTestResult.localCoordinates.y, 0)
-        cylinderNode.eulerAngles = SCNVector3(touch.altitudeAngle, 0.0, 0 - touch.azimuthAngleInView(view) - halfPi)
+        cylinderNode.eulerAngles = SCNVector3(touch.altitudeAngle, 0.0, 0 - touch.azimuthAngle(in: view) - halfPi)
         
-        let frequency = touch.locationInView(view).x / view.bounds.width
-        let modulatingMultiplier = touch.locationInView(view).y / view.bounds.height
+        let frequency = touch.location(in: view).x / view.bounds.width
+        let modulatingMultiplier = touch.location(in: view).y / view.bounds.height
         let carrierMultiplier = (halfPi - touch.altitudeAngle) / halfPi
-        let modulationIndex = (pi + touch.azimuthAngleInView(view)) / (pi * 2)
+        let modulationIndex = (pi + touch.azimuthAngle(in: view)) / (pi * 2)
      
         label.text = String(format: "⇔ Frequency: %d %%", Int(frequency * 100)) +
             String(format: "\n⇕ Modulating Multiplier: %d %%", Int(modulatingMultiplier * 100)) +
@@ -154,7 +154,7 @@ class ViewController: UIViewController
         // ambient light...
         
         let ambientLight = SCNLight()
-        ambientLight.type = SCNLightTypeAmbient
+        ambientLight.type = SCNLight.LightType.ambient
         ambientLight.color = UIColor(white: 0.15, alpha: 1.0)
         let ambientLightNode = SCNNode()
         ambientLightNode.light = ambientLight
@@ -164,7 +164,7 @@ class ViewController: UIViewController
         // omni light...
         
         let omniLight = SCNLight()
-        omniLight.type = SCNLightTypeOmni
+        omniLight.type = SCNLight.LightType.omni
         omniLight.color = UIColor(white: 1.0, alpha: 1.0)
         let omniLightNode = SCNNode()
         omniLightNode.light = omniLight
@@ -178,7 +178,7 @@ class ViewController: UIViewController
         sceneKitView.frame = view.bounds
         rollingWaveformPlot.frame = view.bounds
 
-        label.frame = CGRect(x: 0, y: topLayoutGuide.length, width: view.frame.width, height: label.intrinsicContentSize().height)
+        label.frame = CGRect(x: 0, y: topLayoutGuide.length, width: view.frame.width, height: label.intrinsicContentSize.height)
     }
 
 }

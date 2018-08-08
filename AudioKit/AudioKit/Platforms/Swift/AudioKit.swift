@@ -72,25 +72,25 @@ func - (left: AKConstant, right: AKConstant) -> AKConstant {
 }
 
 func * (left: AKParameter, right: AKParameter) -> AKParameter {
-    return left.scaledBy(right)
+    return left.scaled(by: right)
 }
 
 func * (left: AKControl, right: AKControl) -> AKControl {
-    return left.scaledBy(right)
+    return left.scaled(by: right)
 }
 
 func * (left: AKConstant, right: AKConstant) -> AKConstant {
-    return left.scaledBy(right)
+    return left.scaled(by: right)
 }
 
 func / (left: AKParameter, right: AKParameter) -> AKParameter {
-    return left.dividedBy(right)
+    return left.divided(by: right)
 }
 
 func / (left: AKControl, right: AKControl) -> AKControl {
-    return left.dividedBy(right)
+    return left.divided(by: right)
 }
 
 func / (left: AKConstant, right: AKConstant) -> AKConstant {
-    return left.dividedBy(right)
+    return left.divided(by: right)
 }
